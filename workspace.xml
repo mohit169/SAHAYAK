@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="3484e05a-d677-4c1d-b6ec-718af651f802" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ecommerce/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ecommerce/settings.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ecommerce/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ecommerce/wsgi.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exportToHTML/__init__.py.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exportToHTML/admin.py.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exportToHTML/apps.py.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exportToHTML/forms.py.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exportToHTML/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exportToHTML/models.py.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exportToHTML/serializer.py.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exportToHTML/tests.py.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exportToHTML/urls.py.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exportToHTML/views.py.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/manage.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shop/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shop/admin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shop/apps.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shop/forms.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shop/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shop/serializer.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shop/static/shop/css/bootstrap.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shop/static/shop/css/shop-homepage.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shop/static/shop/js/bootstrap.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shop/static/shop/js/jquery.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shop/templates/shop/base.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shop/templates/shop/detail.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shop/templates/shop/home.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shop/templates/shop/list.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shop/templates/shop/signin.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shop/templates/shop/signup.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shop/tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shop/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shop/views.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExportToHTMLSettings">
+    <option name="printScope" value="4" />
+    <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/exportToHTML" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1lNkMuaDxy0rr7nAUTxUuge5dpJ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="AnalyzeApkAction.lastApkPath" value="$PROJECT_DIR$" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Specifications" type="executeSpecs" factoryName="Gauge Execution" temporary="true">
+      <setting name="environment" value="" />
+      <setting name="specsToExecute" value="" />
+      <setting name="tags" value="" />
+      <setting name="parallelNodes" value="" />
+      <setting name="execInParallel" value="false" />
+      <setting name="programParameters" value="" />
+      <setting name="workingDirectory" value="" />
+      <setting name="moduleName" value="django-ecommerce-master" />
+      <envMap />
+      <setting name="rowsRange" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="StructureViewFactory">
+    <option name="AUTOSCROLL_MODE" value="false" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3484e05a-d677-4c1d-b6ec-718af651f802" name="Default Changelist" comment="" />
+      <created>1607444893819</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1607444893819</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/shop/migrations/0002_auto_20181214_1203.py</url>
+          <line>9</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
