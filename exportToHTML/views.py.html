@@ -1,0 +1,171 @@
+<html>
+<head>
+<title>views.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #808080;}
+.s3 { color: #6a8759;}
+.s4 { color: #629755; font-style: italic;}
+.s5 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+views.py</font>
+</center></td></tr></table>
+<pre><span class="s0">from </span><span class="s1">django.contrib </span><span class="s0">import </span><span class="s1">messages</span>
+<span class="s0">from </span><span class="s1">django.contrib.auth </span><span class="s0">import </span><span class="s1">authenticate</span><span class="s0">, </span><span class="s1">login</span><span class="s0">, </span><span class="s1">logout</span>
+<span class="s0">from </span><span class="s1">django.contrib.auth.models </span><span class="s0">import </span><span class="s1">User</span>
+<span class="s0">from </span><span class="s1">django.db.models </span><span class="s0">import </span><span class="s1">Q</span>
+<span class="s0">from </span><span class="s1">django.shortcuts </span><span class="s0">import </span><span class="s1">render</span><span class="s0">, </span><span class="s1">redirect</span>
+
+<span class="s2"># Create your views here.</span>
+<span class="s0">from </span><span class="s1">rest_framework.decorators </span><span class="s0">import </span><span class="s1">api_view</span>
+<span class="s0">from </span><span class="s1">rest_framework.response </span><span class="s0">import </span><span class="s1">Response</span>
+
+<span class="s0">from </span><span class="s1">shop.forms </span><span class="s0">import </span><span class="s1">ReviewForm</span><span class="s0">, </span><span class="s1">SignupForm</span><span class="s0">, </span><span class="s1">SigninForm</span>
+<span class="s0">from </span><span class="s1">shop.models </span><span class="s0">import </span><span class="s1">Product</span><span class="s0">, </span><span class="s1">Category</span>
+
+<span class="s0">from </span><span class="s1">shop.serializer </span><span class="s0">import </span><span class="s1">ProductSerializer</span>
+
+
+<span class="s0">def </span><span class="s1">home(request):</span>
+    <span class="s2"># if request.META['HTTP_HOST'] != &quot;ecommerce.hem.xyz.np&quot;:</span>
+    <span class="s2">#     return redirect(&quot;http://ecommerce.hem.xyz.np&quot;)</span>
+    <span class="s1">handymen = Product.objects.filter(active=</span><span class="s0">True</span><span class="s1">)</span>
+    <span class="s1">fields = Category.objects.filter(active=</span><span class="s0">True</span><span class="s1">)</span>
+    <span class="s1">context = {</span><span class="s3">&quot;handymen&quot;</span><span class="s1">: handymen</span><span class="s0">, </span><span class="s3">&quot;fields&quot;</span><span class="s1">: fields}</span>
+    <span class="s0">return </span><span class="s1">render(request</span><span class="s0">, </span><span class="s3">&quot;shop/home.html&quot;</span><span class="s0">, </span><span class="s1">context)</span>
+
+
+<span class="s0">def </span><span class="s1">search(request):</span>
+    <span class="s1">q = request.GET[</span><span class="s3">&quot;q&quot;</span><span class="s1">]</span>
+    <span class="s1">products = Product.objects.filter(active=</span><span class="s0">True, </span><span class="s1">name__icontains=q)</span>
+    <span class="s1">categories = Category.objects.filter(active=</span><span class="s0">True</span><span class="s1">)</span>
+    <span class="s1">context = {</span><span class="s3">&quot;products&quot;</span><span class="s1">: products</span><span class="s0">,</span>
+               <span class="s3">&quot;categories&quot;</span><span class="s1">: categories</span><span class="s0">,</span>
+               <span class="s3">&quot;title&quot;</span><span class="s1">: q + </span><span class="s3">&quot; - search&quot;</span><span class="s1">}</span>
+    <span class="s0">return </span><span class="s1">render(request</span><span class="s0">, </span><span class="s3">&quot;shop/list.html&quot;</span><span class="s0">, </span><span class="s1">context)</span>
+
+
+<span class="s0">def </span><span class="s1">categories(request</span><span class="s0">, </span><span class="s1">slug):</span>
+    <span class="s1">cat = Category.objects.get(slug=slug)</span>
+    <span class="s1">products = Product.objects.filter(active=</span><span class="s0">True, </span><span class="s1">category=cat)</span>
+    <span class="s1">categories = Category.objects.filter(active=</span><span class="s0">True</span><span class="s1">)</span>
+    <span class="s1">context = {</span><span class="s3">&quot;products&quot;</span><span class="s1">:products</span><span class="s0">, </span><span class="s3">&quot;categories&quot;</span><span class="s1">:categories</span><span class="s0">, </span><span class="s3">&quot;title&quot;</span><span class="s1">:cat.name + </span><span class="s3">&quot; - Categories&quot;</span><span class="s1">}</span>
+    <span class="s0">return </span><span class="s1">render(request</span><span class="s0">, </span><span class="s3">&quot;shop/list.html&quot;</span><span class="s0">, </span><span class="s1">context)</span>
+
+
+<span class="s0">def </span><span class="s1">detail(request</span><span class="s0">, </span><span class="s1">slug):</span>
+    <span class="s1">product = Product.objects.get(active=</span><span class="s0">True, </span><span class="s1">slug=slug)</span>
+    <span class="s0">if </span><span class="s1">request.method == </span><span class="s3">&quot;POST&quot;</span><span class="s1">:</span>
+        <span class="s1">form = ReviewForm(request.POST)</span>
+        <span class="s0">if </span><span class="s1">form.is_valid():</span>
+            <span class="s1">review = form.save(commit=</span><span class="s0">False</span><span class="s1">)</span>
+            <span class="s1">review.product = product</span>
+            <span class="s1">review.user = request.user</span>
+            <span class="s1">review.save()</span>
+            <span class="s1">messages.success(request</span><span class="s0">, </span><span class="s3">&quot;Review saved&quot;</span><span class="s1">)</span>
+        <span class="s0">else</span><span class="s1">:</span>
+            <span class="s1">messages.error(request</span><span class="s0">, </span><span class="s3">&quot;Invalid form&quot;</span><span class="s1">)</span>
+    <span class="s0">else</span><span class="s1">:</span>
+        <span class="s1">form = ReviewForm()</span>
+
+
+    <span class="s1">categories = Product.objects.filter(active=</span><span class="s0">True</span><span class="s1">)</span>
+    <span class="s1">context = {</span><span class="s3">&quot;product&quot; </span><span class="s1">: product</span><span class="s0">,</span>
+               <span class="s3">&quot;categories&quot;</span><span class="s1">:categories</span><span class="s0">,</span>
+               <span class="s3">&quot;form&quot;</span><span class="s1">: form}</span>
+    <span class="s0">return </span><span class="s1">render(request</span><span class="s0">, </span><span class="s3">&quot;shop/detail.html&quot;</span><span class="s0">, </span><span class="s1">context)</span>
+
+
+<span class="s0">def </span><span class="s1">signup(request):</span>
+    <span class="s0">if </span><span class="s1">request.method == </span><span class="s3">&quot;POST&quot;</span><span class="s1">:</span>
+        <span class="s1">form = SignupForm(request.POST)</span>
+        <span class="s0">if </span><span class="s1">form.is_valid():</span>
+            <span class="s1">user = form.save(commit=</span><span class="s0">False</span><span class="s1">)</span>
+            <span class="s1">user.save()</span>
+            <span class="s1">messages.success(request</span><span class="s0">, </span><span class="s3">&quot;User saved&quot;</span><span class="s1">)</span>
+            <span class="s0">return </span><span class="s1">redirect(</span><span class="s3">&quot;shop:signin&quot;</span><span class="s1">)</span>
+        <span class="s0">else</span><span class="s1">:</span>
+            <span class="s1">messages.error(request</span><span class="s0">, </span><span class="s3">&quot;Error in form&quot;</span><span class="s1">)</span>
+    <span class="s0">else</span><span class="s1">:</span>
+        <span class="s1">form = SignupForm()</span>
+    <span class="s1">context = {</span><span class="s3">&quot;form&quot;</span><span class="s1">: form}</span>
+    <span class="s0">return </span><span class="s1">render(request</span><span class="s0">, </span><span class="s3">&quot;shop/signup.html&quot;</span><span class="s0">, </span><span class="s1">context)</span>
+
+
+<span class="s0">def </span><span class="s1">signin(request):</span>
+    <span class="s0">if </span><span class="s1">request.method==</span><span class="s3">&quot;POST&quot;</span><span class="s1">:</span>
+        <span class="s1">form = SigninForm(request.POST)</span>
+        <span class="s2"># username = req.POST[&quot;username&quot;]</span>
+        <span class="s2"># password = req.POST[&quot;password&quot;]</span>
+        <span class="s1">username = form[</span><span class="s3">&quot;username&quot;</span><span class="s1">].value()</span>
+        <span class="s1">password = form[</span><span class="s3">&quot;password&quot;</span><span class="s1">].value()</span>
+        <span class="s1">user = authenticate(request</span><span class="s0">, </span><span class="s1">username=username</span><span class="s0">,  </span><span class="s1">password=password)</span>
+        <span class="s0">if </span><span class="s1">user </span><span class="s0">is not None</span><span class="s1">:</span>
+            <span class="s1">login(request</span><span class="s0">, </span><span class="s1">user)</span>
+            <span class="s1">messages.success(request</span><span class="s0">, </span><span class="s3">&quot;Successfully logged in&quot;</span><span class="s1">)</span>
+            <span class="s0">return </span><span class="s1">redirect(</span><span class="s3">&quot;shop:home&quot;</span><span class="s1">)</span>
+        <span class="s0">else</span><span class="s1">:</span>
+            <span class="s1">messages.error(request</span><span class="s0">, </span><span class="s3">&quot;Invalid Username or Password&quot;</span><span class="s1">)</span>
+    <span class="s0">else</span><span class="s1">:</span>
+        <span class="s1">form = SigninForm()</span>
+    <span class="s1">context = {</span><span class="s3">&quot;form&quot;</span><span class="s1">: form}</span>
+    <span class="s0">return </span><span class="s1">render(request</span><span class="s0">, </span><span class="s3">&quot;shop/signin.html&quot;</span><span class="s0">, </span><span class="s1">context)</span>
+
+
+<span class="s0">def </span><span class="s1">signout(request):</span>
+    <span class="s1">logout(request)</span>
+    <span class="s0">return </span><span class="s1">redirect(</span><span class="s3">&quot;shop:signin&quot;</span><span class="s1">)</span>
+
+
+<span class="s0">def </span><span class="s1">CALL(request</span><span class="s0">, </span><span class="s1">slug):</span>
+    <span class="s4">&quot;&quot;&quot; 
+        data = {&quot;items&quot; : [&quot;slug1&quot;, &quot;slug2&quot;], 
+                &quot;price&quot; : 12342, 
+                &quot;count&quot; : 5 
+                } 
+        request.session[&quot;data&quot;] = data 
+        &quot;&quot;&quot;</span>
+    <span class="s1">product = Product.objects.get(slug=slug)</span>
+    <span class="s1">inital = {</span><span class="s3">&quot;items&quot;</span><span class="s1">:[]</span><span class="s0">,</span><span class="s3">&quot;price&quot;</span><span class="s1">:</span><span class="s5">0.0</span><span class="s0">,</span><span class="s3">&quot;count&quot;</span><span class="s1">:</span><span class="s5">0</span><span class="s1">}</span>
+    <span class="s1">session = request.session.get(</span><span class="s3">&quot;data&quot;</span><span class="s0">, </span><span class="s1">inital)</span>
+    <span class="s0">if </span><span class="s1">slug </span><span class="s0">in </span><span class="s1">session[</span><span class="s3">&quot;items&quot;</span><span class="s1">]:</span>
+        <span class="s1">messages.error(request</span><span class="s0">, </span><span class="s3">&quot;Already added to cart&quot;</span><span class="s1">)</span>
+    <span class="s0">else</span><span class="s1">:</span>
+        <span class="s1">session[</span><span class="s3">&quot;items&quot;</span><span class="s1">].append(slug)</span>
+        <span class="s1">session[</span><span class="s3">&quot;price&quot;</span><span class="s1">] += float(product.price)</span>
+        <span class="s1">session[</span><span class="s3">&quot;count&quot;</span><span class="s1">] += </span><span class="s5">1</span>
+        <span class="s1">request.session[</span><span class="s3">&quot;data&quot;</span><span class="s1">] = session</span>
+        <span class="s1">messages.success(request</span><span class="s0">, </span><span class="s3">&quot;Added successfully&quot;</span><span class="s1">)</span>
+    <span class="s0">return </span><span class="s1">redirect(</span><span class="s3">&quot;shop:detail&quot;</span><span class="s0">, </span><span class="s1">slug)</span>
+
+
+<span class="s0">def </span><span class="s1">CALL(request):</span>
+    <span class="s1">sess = request.session.get(</span><span class="s3">&quot;data&quot;</span><span class="s0">, </span><span class="s1">{</span><span class="s3">&quot;items&quot;</span><span class="s1">:[]})</span>
+    <span class="s1">products = Product.objects.filter(active=</span><span class="s0">True, </span><span class="s1">slug__in=sess[</span><span class="s3">&quot;items&quot;</span><span class="s1">])</span>
+    <span class="s1">categories = Category.objects.filter(active=</span><span class="s0">True</span><span class="s1">)</span>
+    <span class="s1">context = {</span><span class="s3">&quot;products&quot;</span><span class="s1">: products</span><span class="s0">,</span>
+               <span class="s3">&quot;categories&quot;</span><span class="s1">: categories</span><span class="s0">,</span>
+               <span class="s3">&quot;title&quot;</span><span class="s1">: </span><span class="s3">&quot;CALL&quot;</span><span class="s1">}</span>
+    <span class="s0">return </span><span class="s1">render(request</span><span class="s0">, </span><span class="s3">&quot;shop/list.html&quot;</span><span class="s0">, </span><span class="s1">context)</span>
+
+
+<span class="s0">def </span><span class="s1">checkout(request):</span>
+    <span class="s1">request.session.pop(</span><span class="s3">'data'</span><span class="s0">, None</span><span class="s1">)</span>
+    <span class="s0">return </span><span class="s1">redirect(</span><span class="s3">&quot;/&quot;</span><span class="s1">)</span>
+
+<span class="s1">@api_view([</span><span class="s3">'GET'</span><span class="s1">])</span>
+<span class="s0">def </span><span class="s1">api_products(request):</span>
+    <span class="s1">query = request.GET.get(</span><span class="s3">&quot;q&quot;</span><span class="s0">, </span><span class="s3">&quot;&quot;</span><span class="s1">)</span>
+    <span class="s1">products = Product.objects.filter(Q(name__contains=query) | Q(description__contains=query))</span>
+    <span class="s1">serializer = ProductSerializer(products</span><span class="s0">, </span><span class="s1">many=</span><span class="s0">True</span><span class="s1">)</span>
+    <span class="s0">return </span><span class="s1">Response(serializer.data)</span>
+</pre>
+</body>
+</html>

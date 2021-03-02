@@ -1,0 +1,38 @@
+<html>
+<head>
+<title>urls.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #a9b7c6;}
+.s1 { color: #cc7832;}
+.s2 { color: #6a8759;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+urls.py</font>
+</center></td></tr></table>
+<pre>
+<span class="s1">from </span><span class="s0">django.urls </span><span class="s1">import </span><span class="s0">path</span>
+
+<span class="s1">from </span><span class="s0">shop </span><span class="s1">import </span><span class="s0">views</span>
+
+<span class="s0">app_name = </span><span class="s2">&quot;shop&quot;</span>
+
+<span class="s0">urlpatterns = [</span>
+    <span class="s0">path(</span><span class="s2">''</span><span class="s1">, </span><span class="s0">views.home</span><span class="s1">, </span><span class="s0">name=</span><span class="s2">&quot;home&quot;</span><span class="s0">)</span><span class="s1">,</span>
+    <span class="s0">path(</span><span class="s2">'signup/'</span><span class="s1">, </span><span class="s0">views.signup</span><span class="s1">, </span><span class="s0">name=</span><span class="s2">&quot;signup&quot;</span><span class="s0">)</span><span class="s1">,</span>
+    <span class="s0">path(</span><span class="s2">'signin/'</span><span class="s1">, </span><span class="s0">views.signin</span><span class="s1">, </span><span class="s0">name=</span><span class="s2">&quot;signin&quot;</span><span class="s0">)</span><span class="s1">,</span>
+    <span class="s0">path(</span><span class="s2">'signout/'</span><span class="s1">, </span><span class="s0">views.signout</span><span class="s1">, </span><span class="s0">name=</span><span class="s2">&quot;signout&quot;</span><span class="s0">)</span><span class="s1">,</span>
+    <span class="s0">path(</span><span class="s2">'search/'</span><span class="s1">, </span><span class="s0">views.search</span><span class="s1">, </span><span class="s0">name=</span><span class="s2">&quot;search&quot;</span><span class="s0">)</span><span class="s1">,</span>
+    <span class="s0">path(</span><span class="s2">'&lt;slug&gt;/CALL/'</span><span class="s1">, </span><span class="s0">views.CALL</span><span class="s1">, </span><span class="s0">name=</span><span class="s2">&quot;CALL&quot;</span><span class="s0">)</span><span class="s1">,</span>
+    <span class="s0">path(</span><span class="s2">'CALL/'</span><span class="s1">, </span><span class="s0">views.CALL</span><span class="s1">, </span><span class="s0">name=</span><span class="s2">&quot;CALL&quot;</span><span class="s0">)</span><span class="s1">,</span>
+    <span class="s0">path(</span><span class="s2">'checkout/'</span><span class="s1">, </span><span class="s0">views.checkout</span><span class="s1">, </span><span class="s0">name=</span><span class="s2">&quot;checkout&quot;</span><span class="s0">)</span><span class="s1">,</span>
+    <span class="s0">path(</span><span class="s2">'&lt;slug&gt;/'</span><span class="s1">, </span><span class="s0">views.detail</span><span class="s1">, </span><span class="s0">name=</span><span class="s2">&quot;detail&quot;</span><span class="s0">)</span><span class="s1">,</span>
+    <span class="s0">path(</span><span class="s2">'categories/&lt;slug&gt;/'</span><span class="s1">, </span><span class="s0">views.categories</span><span class="s1">, </span><span class="s0">name=</span><span class="s2">&quot;categories&quot;</span><span class="s0">)</span><span class="s1">,</span>
+    <span class="s0">path(</span><span class="s2">'api/products/'</span><span class="s1">, </span><span class="s0">views.api_products</span><span class="s1">, </span><span class="s0">name=</span><span class="s2">&quot;api_products&quot;</span><span class="s0">)</span><span class="s1">,</span>
+<span class="s0">]</span></pre>
+</body>
+</html>
